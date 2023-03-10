@@ -10,8 +10,20 @@ const Index = () =>{
     const handleSearchRepo = async() =>{
         const {data} = await api.get(`repos/${currentRepo}`)
         console.log(data)
-        setRepos(prev => [...prev, data])
-        setCurrentRepo('')
+
+        if(data.id){
+
+            const isExist = repos.find(repo => repo.id === data.id);
+      
+            if(!isExist){
+              setRepos(prev => [...prev, data]);
+              setCurrentRepo('')
+              return
+            }
+      
+        }
+        console.log('ainda não existe repositorio deste!')
+
     }
 
     const handleRemoveRepo = (id) =>{
